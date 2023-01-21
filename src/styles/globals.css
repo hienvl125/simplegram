@@ -5,9 +5,13 @@
 .overflow-y-overlay {
   overflow-y: overlay;
 }
+
+.my-hover-overlay:hover{
+  overflow-y: overlay;
+}
 .chat {
   position: relative;
-  background: linear-gradient(#d5d88d,#88b884);
+  background: linear-gradient(#d5d88d, #88b884);
 }
 
 .chat::before {
@@ -27,4 +31,32 @@
 .chat-container {
   position: relative;
   z-index: 9999;
+}
+
+.gray-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.gray-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.gray-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border: 4px solid transparent;
+  border-radius: 6px;
+}
+
+.green-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.green-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.green-scrollbar::-webkit-scrollbar-thumb {
+  background: #00000035;
+  border: 4px solid transparent;
+  border-radius: 6px;
 }
