@@ -6,9 +6,28 @@
   overflow-y: overlay;
 }
 
-.my-hover-overlay:hover{
+.my-hover-overlay:hover {
   overflow-y: overlay;
 }
+
+.auth-page {
+  position: relative;
+  background: linear-gradient(#d5d88d, #88b884);
+}
+
+.auth-page::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: url("/pattern.svg");
+  background-repeat: repeat;
+}
+
 .chat {
   position: relative;
   background: linear-gradient(#d5d88d, #88b884);
