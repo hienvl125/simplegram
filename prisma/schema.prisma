@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
@@ -21,28 +21,43 @@ enum MessageType {
     FILE
 }
 
+model User {
+    id            String             @id @default(cuid())
+    name          String?
+    email         String             @unique
+    password      String
+    image         String?
+    conversations UserConversation[]
+    messages      Message[]
+}
+
 model Conversation {
-    id        String           @id @default(cuid())
+    id        String             @id @default(cuid())
     name      String
     cType     ConversationType
     createdAt DateTime
     updatedAt DateTime
+    users     UserConversation[]
+    messages  Message[]
+}
+
+model UserConversation {
+    userId         String
+    user           User         @relation(fields: [userId], references: [id])
+    conversationId String
+    conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+    @@id([userId, conversationId])
 }
 
 model Message {
-    id             String      @id @default(cuid())
+    id             String       @id @default(cuid())
     body           String
     mType          MessageType
     userId         String
+    user           User         @relation(fields: [userId], references: [id])
     conversationId String
+    conversation   Conversation @relation(fields: [conversationId], references: [id])
     deleted        Boolean
     createdAt      DateTime
-}
-
-model User {
-    id       String  @id @default(cuid())
-    name     String?
-    email    String  @unique
-    password String
-    image    String?
 }
