@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "../../../server/db";
 import bcrypt from "bcrypt"
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
@@ -30,7 +30,7 @@ const authOptions: NextAuthOptions = {
         if (!isMatched) {
           return null;
         }
-        
+
         return user;
       },
     }),
@@ -39,8 +39,12 @@ const authOptions: NextAuthOptions = {
     signIn: "/sign_in",
   },
   callbacks: {
-    jwt(params) {
-      return params.token;
+    async session({ session, user, token }) {
+      if (session.user && token.sub) {
+        session.user.id = token.sub;
+      }
+
+      return session;
     },
   },
 };
